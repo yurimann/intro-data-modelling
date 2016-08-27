@@ -9,7 +9,7 @@ This assignment will give you the opportunity to practice
   * writing ActiveRecord migrations to generate those database schemas and ActiveRecord models
   * writing ActiveRecord association code to implement those relationships
 
-First this guide will walk you through a few examples of the data modelling process (please feel free to code along).  Then it will present you with a collection of simple app concepts for you to practice this data modelling process on.  The steps involved in this process are:
+First this guide will walk you through a few examples of the data modelling process (please feel free to code along).  Then it will present you with [a collection of simple app concepts for you to practice this data modelling process on](#now-its-your-turn).  The steps involved in this process are:
 #### Step 1
 Come up with a set of models and their attributes.
 
@@ -34,16 +34,7 @@ This example describes a simple blogging app that includes articles written by d
 #### Step 1:
 Models:
 
-```
-Article
-* title
-* body
-* date
-
-Author
-* name
-* bio
-```
+![author_article.png.png](author_article.png)
 
 #### Step 2:
 One article is written by one author
@@ -55,19 +46,7 @@ Therefore there is a 1-to-many relationship between them.
 #### Step 3:
 Database schema:
 
-```
-articles
-* id
-* title
-* body
-* date
-* author_id
-
-authors
-* id
-* name
-* bio
-```
+![articles_authors.png](articles_authors.png)
 
 #### Step 4
 `rails g model Author name:string bio:text`
@@ -99,16 +78,7 @@ end
 This example refers to an app that allows users to bookmark articles.
 
 #### Step 1
-```
-User
-* email
-* username
-
-Article
-* title
-* body
-* date
-```
+![user_article.png](user_article.png)
 
 #### Step 2
 Each user bookmarks many different articles.
@@ -120,22 +90,7 @@ Therefore there is a many-to-many relationship between them.
 #### Step 3
 We need to add a join table to record this many-to-many relationship.
 
-```
-users
-* id
-* email
-* username
-
-articles
-* id
-* title
-* body
-* date
-
-articles_users
-* article_id
-* user_id
-```
+![articles_users.png](articles_users.png)
 
 #### Step 4
 `rails g model User email:string username:string`
@@ -164,19 +119,7 @@ We might decide that we want to know when a user bookmarked an article.  This is
 #### Step 1
 *foreign keys and primary keys are excluded for consistency, but will be added in step 3*
 
-```
-User
-* email
-* username
-
-Article
-* title
-* body
-* date
-
-Bookmark
-* date
-```
+![bookmark.png](bookmark.png)
 
 #### Step 2
 Each user has many bookmarks.
@@ -200,24 +143,7 @@ Each article is saved by many different users (through being bookmarked by them)
 Therefore there is a many-to-many relationship between user and article, through bookmark.
 
 #### Step 3
-```
-users
-* id
-* email
-* username
-
-articles
-* id
-* title
-* body
-* date
-
-bookmarks
-* id
-* date
-* user_id
-* article_id
-```
+![bookmarks.png](bookmarks.png)
 
 #### Step 4
 `rails g model Article title:string body:text date:date`
@@ -250,6 +176,7 @@ Again, `Bookmark` has two `belongs_to` associations because of the two foreign k
 `has_many :articles, through: :bookmarks` in the `User` model expresses that same relationship from the user’s point of view.
 
 
+### General Hints
 
 ##### Placing foreign keys
 For every 1-to-many relationship in your app you must place a foreign key on the “many side”.  For example:
@@ -294,4 +221,20 @@ has_many ... through: ...
 
 `has_many through:` is the association you need for a "through" many-to-many relationship where the join table has a model to go with it.
 
+### Now it's Your Turn
+Your task is to complete steps 1-5 for each of the following app concepts.  Don't go crazy with models - you can keep each solution to 2-5 models for now.
+
+1. For this first one we'll start you off with the models: ![customer_order.png](customer_order.png)
+
+2. An app that lists what ingredients are needed for various recipes.
+
+3. An app that allows doctors and patients to make appointments with each other.
+
+4. An Eventbrite-inspired app that allows hosts to create events and guests to RSVP to them
+
+5. Github! You can limit your solution to only worrying about repositories and users.
+
+6. Twitter! You can limit your solution to only worrying about tweets and users.
+
+7. An IMDB-inspired app that contains films, directors, and actors
 
