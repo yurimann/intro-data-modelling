@@ -190,7 +190,7 @@ end
 
 class User < ActiveRecord::Base
   has_many :bookmarks
-  has_many :users, through: :bookmarks
+  has_many :articles, through: :bookmarks
 end
 ```
 Again, `Bookmark` has two `belongs_to` associations because of the two foreign keys in its database table.  The `has_many :bookmarks` associations in `User` and `Article` express the other sides of those 1-to-many relationships.
